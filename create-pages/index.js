@@ -1,8 +1,9 @@
 const config = require('./config')
-const { absFilename, writePageFile } = require('./tools')
+const { absFilename, writePageFile, readJsonFile, writeJsonFile } = require('./tools')
 const path = require('path')
 const fs = require('fs')
 
+let pages = []
 for (const item of config.pages) {
   const jsFile = absFilename(item.path, 'js')
   //console.log(js);process.exit();
@@ -19,4 +20,14 @@ for (const item of config.pages) {
   writePageFile(absFilename(item.path, 'wxss'), '')
   writePageFile(absFilename(item.path, 'wxml'), `<view>${item.name}</view>`)
   console.log(item.path + ' created')
+
+  pages.push(item.path)
 }
+
+// 将pages写入 app.json
+appJsonFile = path.join(config.projectDir, 'app.json')
+let appJson = readJsonFile(appJsonFile)
+pages = appJson.pages.concat(pages)
+appJson.pages = Array.from(new Set(pages))
+appJson.pages.sort()
+writeJsonFile(appJsonFile, appJson)
