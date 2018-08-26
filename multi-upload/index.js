@@ -2,7 +2,7 @@
 // 请先打开微信开发工具，并完成登录
 
 const config = require('./config')
-const { readJsonFile, writeJsonFile, writeJsFile, httpRequest } = require('./tools')
+const { readJsonFile, writeJsonFile, writeFile, httpRequest } = require('./tools')
 const path = require('path')
 
 const version = config.version
@@ -39,7 +39,7 @@ const start = async () => {
     // 特殊的配置文件
     // utils/shopId.js
     var shopIdFile = path.join(projectRoot, 'utils/shopId.js')
-    writeJsFile(shopIdFile, `// auto generated!!\nexport default ${item.shopid}`)
+    writeFile(shopIdFile, `// auto generated!!\nexport default ${item.shopid}`)
 
     // 上传
     let res = await httpRequest('/upload', {

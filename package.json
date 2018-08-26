@@ -1,10 +1,11 @@
 {
   "name": "miniapp_upload_script",
   "version": "1.0.0",
-  "description": "小程序多商户上传脚本",
+  "description": "小程序脚本",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "upload": "node multi-upload/index.js",
+    "create-pages": "node create-pages/index.js"
   },
   "author": "kriss",
   "license": "MIT",
